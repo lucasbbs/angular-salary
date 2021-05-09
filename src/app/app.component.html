@@ -1,0 +1,318 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  integrity="sha512-UJfAaOlIRtdR+0P6C3KUoTDAxVTuy3lnSXLyLKlHYJlcSU8Juge/mjeaxDNMlw9LgeIotgz5FP8eUQPhX1q10A=="
+  crossorigin="anonymous"
+/>
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<style>
+  .card {
+    margin: 0 auto !important;
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow 0.25s;
+    border-radius: 2px;
+  }
+</style>
+<script>
+  const {
+    baseINSS,
+    baseIRPF,
+    discountINSS,
+    dependentesDiscount,
+    percentageDependentes,
+    discountIRPF,
+    netSalary,
+    percentageINSS,
+    percentageIRPF,
+    percentageSalary,
+  } = calculateSalaryFrom(amount, dependentes);
+</script>
+<div
+  class="row"
+  style="
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    display: flex;
+  "
+>
+  <div
+    className="input-field col s6"
+    style="
+      width: 50%;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <label for="salary" class="active" style="margin-left: 25px">
+      Salário bruto
+    </label>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <i class="material-icons prefix"> attach_money </i
+      ><input
+        id="salary"
+        name="txtamount"
+        type="text"
+        class="validate"
+        [(ngModel)]="amount"
+        (focus)="setValue()"
+        (blur)="transformAmount($event, dependentes)"
+        [(value)]="formattedAmount"
+      />
+    </div>
+  </div>
+  <div
+    className="input-field col s6"
+    style="
+      width: 50%;
+      margin: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <label
+      for="Dependentes"
+      class="active"
+      style="width: calc(100% - 3rem - 1.5rem)"
+    >
+      Dependentes
+    </label>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <i class="material-icons prefix"> face </i>
+      <input
+        id="Dependentes"
+        name="Dependentes"
+        type="text"
+        class="validate"
+        [(ngModel)]="dependentes"
+        [(value)]="dependentes"
+      />
+    </div>
+  </div>
+</div>
+<div
+  class="row"
+  style="
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    display: flex;
+  "
+>
+  <div
+    className="input-field col s2"
+    style="
+      width: 16.6666666667%;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <div style="display: flex">
+      <span style="margin-left: 5px"
+        ><label for="salary" class="active"> Base INSS </label></span
+      >
+    </div>
+    <input
+      id="salary"
+      name="txtamount"
+      type="text"
+      class="validate"
+      readonly
+      [(ngModel)]="baseINSS"
+      [(value)]="baseINSS"
+    />
+  </div>
+  <div
+    className="input-field col s2"
+    style="
+      width: 25%;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <div style="display: flex">
+      <span style="margin-left: 5px">
+        <label
+          for="Dependentes"
+          class="active"
+          style="width: calc(100% - 3rem - 1.5rem)"
+        >
+          Desconto INSS
+        </label></span
+      >
+    </div>
+
+    <input
+      id="Dependentes"
+      name="Dependentes"
+      type="text"
+      class="validate"
+      readonly
+      [(ngModel)]="discountINSS"
+      [(value)]="discountINSS"
+    />
+  </div>
+  <div
+    className="input-field col s2"
+    style="
+      width: 25%;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <div style="display: flex">
+      <span style="margin-left: 5px"
+        ><label for="salary" class="active">
+          Desconto de Dependentes
+        </label></span
+      >
+    </div>
+    <input
+      id="salary"
+      name="txtamount"
+      type="text"
+      readonly
+      class="validate"
+      [(ngModel)]="dependentesDiscount"
+      [(value)]="dependentesDiscount"
+    />
+  </div>
+
+  <div
+    className="input-field col s2"
+    style="
+      width: 16.6666666667%;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <div style="display: flex">
+      <span style="margin-left: 5px">
+        <label
+          for="Dependentes"
+          class="active"
+          style="width: calc(100% - 3rem - 1.5rem)"
+        >
+          Base IRPF
+        </label></span
+      >
+    </div>
+
+    <input
+      id="Dependentes"
+      name="Dependentes"
+      type="text"
+      class="validate"
+      readonly
+      [(ngModel)]="baseIRPF"
+      [(value)]="baseIRPF"
+    />
+  </div>
+
+  <div
+    className="input-field col s2"
+    style="
+      width: 16.6666666667%;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <div style="display: flex">
+      <span style="margin-left: 5px">
+        <label
+          for="Dependentes"
+          class="active"
+          style="width: calc(100% - 3rem - 1.5rem)"
+        >
+          Desconto IRPF
+        </label></span
+      >
+    </div>
+
+    <input
+      id="Dependentes"
+      name="Dependentes"
+      type="text"
+      class="validate"
+      readonly
+      [(ngModel)]="discountIRPF"
+      [(value)]="discountIRPF"
+    />
+  </div>
+</div>
+<div
+  class="row"
+  style="
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+  "
+>
+  <div
+    className="input-field col s6"
+    style="
+      width: 25%;
+      margin-right: auto;
+      right: 0;
+      box-sizing: border-box;
+      padding: 0 0.75rem;
+      min-height: 1px;
+    "
+  >
+    <div style="display: flex">
+      <span style="margin-left: 5px"
+        ><label for="netSalary" class="active"> Salário líquido </label></span
+      >
+    </div>
+    <input
+      id="netSalary"
+      name="txtamount"
+      type="text"
+      class="validate"
+      readonly="true"
+      [(ngModel)]="netSalary"
+      [(value)]="netSalary"
+    />
+  </div>
+</div>
