@@ -21,17 +21,17 @@ export class AppComponent {
   netSalary = '0';
 
   transformAmount(element: HTMLElement, dependentes: number) {
-    // ({
-    //   baseINSS: this.baseINSS,
-    //   baseIRPF: this.baseIRPF,
-    //   discountINSS: this.discountINSS,
-    //   dependentesDiscount: this.dependentesDiscount,
-    //   discountIRPF: this.discountIRPF,
-    //   netSalary: this.netSalary,
-    // } = calculateSalaryFrom(element.target.value, Number(dependentes)));
+    ({
+      baseINSS: this.baseINSS,
+      baseIRPF: this.baseIRPF,
+      discountINSS: this.discountINSS,
+      dependentesDiscount: this.dependentesDiscount,
+      discountIRPF: this.discountIRPF,
+      netSalary: this.netSalary,
+    } = calculateSalaryFrom(element.target.value, Number(dependentes)));
     let currencyPipe: CurrencyPipe = new CurrencyPipe('pt-BR');
     this.formattedAmount = currencyPipe.transform(this.amount, 'BRL');
-    // element.target.value = this.formattedAmount;
+    element.target.value = this.formattedAmount;
     this.baseINSS = currencyPipe.transform(this.baseINSS, 'BRL');
     this.baseIRPF = currencyPipe.transform(this.baseIRPF, 'BRL');
     this.dependentesDiscount = currencyPipe.transform(
